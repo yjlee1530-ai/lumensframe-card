@@ -16,59 +16,62 @@
     --navy:#141B31; --navy-2:#1C2542; --gold:#C9A76A; --gold-deep:#A9854A;
     --paper:#F2ECE3; --sub:#3A4258;
     --font:'Roboto','Noto Sans KR',-apple-system,'Apple SD Gothic Neo',sans-serif;
+    --font-kr:'Noto Sans KR','Roboto',-apple-system,'Apple SD Gothic Neo',sans-serif;
   }
   *{box-sizing:border-box}
   html,body{margin:0;min-height:100%;background:var(--navy);color:var(--paper);font-family:var(--font);-webkit-font-smoothing:antialiased}
   body{padding:max(32px,env(safe-area-inset-top)) 20px max(32px,env(safe-area-inset-bottom));display:flex;justify-content:center}
-  main{width:100%;max-width:420px;display:flex;flex-direction:column;gap:28px}
+  main{width:100%;max-width:440px;display:flex;flex-direction:column;gap:28px}
 
-  /* 카드 */
-  .card-wrap{perspective:1200px}
-  .card{position:relative;width:100%;aspect-ratio:90/50;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.2,.7,.2,1);cursor:pointer;border:0;padding:0;background:none;display:block}
+  /* 카드 (뒤집기) */
+  .card-wrap{perspective:1400px}
+  .card{position:relative;width:100%;aspect-ratio:90/50;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.2,.7,.2,1);cursor:pointer;border:0;padding:0;background:none;display:block;font:inherit;color:inherit;text-align:left}
   .card.flipped{transform:rotateY(180deg)}
-  .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:6px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.35)}
-  .front{background:var(--navy-2);color:var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4%}
-  .mono{position:relative;width:24%;aspect-ratio:80/72}
-  .mono span{position:absolute;font-weight:300;line-height:1;font-size:clamp(28px,11vw,48px)}
-  .mono .l{left:20%;top:0}
-  .mono .f{left:50%;top:33%}
-  .mono .beam{position:absolute;left:5%;top:64%;width:98%;height:1px;background:linear-gradient(90deg,rgba(243,227,191,0),#F6E7C4 60%,rgba(243,227,191,0));transform:rotate(-38deg)}
-  .mono .glow{position:absolute;left:42%;top:42%;width:38%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(255,236,196,.5),rgba(255,236,196,0) 70%)}
-  .front .name{font-weight:300;letter-spacing:.34em;padding-left:.34em;font-size:clamp(14px,4.6vw,19px)}
-  .front .tag{font-size:clamp(7px,2vw,8.5px);letter-spacing:.32em;padding-left:.32em}
+  .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:6px;overflow:hidden;container-type:inline-size;box-shadow:0 18px 40px rgba(0,0,0,.35)}
+  /* 카드 안 요소는 카드 폭 기준(340단위)으로 비례 */
+  .face .in{--u:calc(100cqw / 340);position:absolute;inset:0}
+  .face .in *{--u:calc(100cqw / 340)}
 
-  .back{transform:rotateY(180deg);background:var(--paper);color:var(--navy);padding:7.5% 6.5% 5%;display:flex;flex-direction:column;justify-content:space-between;text-align:left}
-  .back .brand{font-size:clamp(12px,3.8vw,16px);letter-spacing:.28em}
-  .back .brand-sub{font-size:clamp(6px,1.8vw,7.5px);letter-spacing:.3em;color:var(--sub);margin-top:5px}
+  .front{background:var(--navy-2);color:var(--gold)}
+  .front .in{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:calc(var(--u)*11)}
+  .front .name{font-size:calc(var(--u)*19);font-weight:300;letter-spacing:.34em;padding-left:.34em}
+  .front .rule{width:calc(var(--u)*28);height:1px;background:var(--gold);opacity:.7}
+  .front .tag{font-size:calc(var(--u)*7);letter-spacing:.32em;padding-left:.32em}
+
+  .back{transform:rotateY(180deg);background:var(--paper);color:var(--navy)}
+  .back .in{padding:calc(var(--u)*28) calc(var(--u)*26) calc(var(--u)*22);display:flex;flex-direction:column;justify-content:space-between;font-family:var(--font-kr)}
+  .back .brand{font-size:calc(var(--u)*12.5);font-weight:500;letter-spacing:.22em}
+  .back .brand-sub{font-size:calc(var(--u)*6.2);letter-spacing:.24em;color:var(--sub);margin-top:calc(var(--u)*6)}
   .back .row{display:flex;justify-content:space-between;align-items:flex-end}
-  .back .who{display:flex;flex-direction:column;gap:12px}
-  .back .rule{width:26px;height:1px;background:var(--gold-deep)}
-  .back .person{font-size:clamp(13px,3.9vw,16px);font-weight:500;letter-spacing:.1em}
-  .back .person small{font-size:.55em;font-weight:400;color:var(--sub);margin-left:6px;letter-spacing:.08em}
-  .back .info{display:flex;gap:12px}
-  .back .info .vr{width:1px;background:var(--gold-deep)}
-  .back ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px;font-size:clamp(7px,2.1vw,9px)}
-  .back li{display:flex;align-items:center;gap:6px}
-  .back li svg{width:1.2em;height:1.2em;flex:none}
-  .back .motto{align-self:flex-end;font-size:clamp(6px,1.8vw,7.5px);letter-spacing:.24em;color:var(--gold-deep)}
+  .back .who{display:flex;flex-direction:column;gap:calc(var(--u)*14);padding-bottom:calc(var(--u)*2)}
+  .back .rule{width:calc(var(--u)*26);height:1px;background:var(--gold-deep)}
+  .back .person{font-size:calc(var(--u)*13);font-weight:500;letter-spacing:.12em}
+  .back .person small{font-size:calc(var(--u)*7);font-weight:400;color:var(--sub);margin-left:calc(var(--u)*6);letter-spacing:.1em}
+  .back .info{display:flex;gap:calc(var(--u)*14)}
+  .back .vr{width:1px;background:var(--gold-deep)}
+  .back ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:calc(var(--u)*6);font-family:var(--font);font-size:calc(var(--u)*7.2);letter-spacing:.04em}
+  .back li{display:flex;align-items:center;gap:calc(var(--u)*8)}
+  .back li svg{width:calc(var(--u)*9);height:calc(var(--u)*9);flex:none}
+  .back .motto{align-self:flex-end;font-size:calc(var(--u)*6.2);letter-spacing:.24em;color:var(--gold-deep)}
 
-  .hint{margin:-14px 0 0;text-align:center;font-size:12px;color:#8E95AB}
+  .hint{margin:-14px 0 0;text-align:center;font-size:12px;color:#8E95AB;font-family:var(--font-kr)}
 
-  /* 소개 + 버튼 */
-  .intro h1{margin:0;font-size:22px;font-weight:500;letter-spacing:.04em}
-  .intro h1 span{font-family:'Roboto';font-weight:300;color:var(--gold);margin-left:8px;font-size:15px;letter-spacing:.08em}
-  .intro p{margin:8px 0 0;color:#C4C8D4;font-size:14px;line-height:1.6}
+  /* 소개 */
+  .intro h1{margin:0;font-family:var(--font-kr);font-size:24px;font-weight:500;letter-spacing:.04em}
+  .intro h1 span{font-family:'Roboto',sans-serif;font-weight:300;color:var(--gold);margin-left:10px;font-size:16px;letter-spacing:.08em}
+  .intro p{margin:10px 0 0;color:#C4C8D4;font-family:var(--font-kr);font-size:14px;line-height:1.7}
 
+  /* 버튼 */
   .actions{display:flex;flex-direction:column;gap:10px}
-  .btn{display:flex;align-items:center;gap:14px;min-height:56px;padding:0 18px;border-radius:6px;text-decoration:none;font-size:15px;color:var(--paper);background:rgba(255,255,255,.04);border:1px solid rgba(201,167,106,.35);font-family:var(--font);cursor:pointer;width:100%;text-align:left}
+  .btn{display:flex;align-items:center;gap:16px;min-height:60px;padding:0 20px;border-radius:6px;text-decoration:none;font-family:var(--font-kr);font-size:15px;color:var(--paper);background:rgba(255,255,255,.04);border:1px solid rgba(201,167,106,.35);cursor:pointer;width:100%;text-align:left}
   .btn svg{width:20px;height:20px;flex:none;color:var(--gold)}
-  .btn .txt{display:flex;flex-direction:column;gap:2px}
-  .btn .txt small{font-size:12px;color:#9AA1B6;font-family:'Roboto'}
+  .btn .txt{display:flex;flex-direction:column;gap:3px}
+  .btn .txt small{font-family:'Roboto',sans-serif;font-size:12.5px;color:#9AA1B6}
   .btn.primary{background:var(--gold);color:var(--navy);border-color:var(--gold);font-weight:500}
   .btn.primary svg{color:var(--navy)}
   .btn:focus-visible,.card:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 
-  footer{text-align:center;font-size:12px;color:#6E7690;letter-spacing:.06em}
+  footer{text-align:center;font-size:12px;color:#6E7690;letter-spacing:.12em;margin-top:4px}
 
   @media (prefers-reduced-motion:reduce){.card{transition:none}}
 </style>
@@ -77,19 +80,15 @@
 <main>
   <div class="card-wrap">
     <button class="card" id="card" aria-label="명함 앞뒤 뒤집기">
-      <div class="face front">
-        <div class="mono" aria-hidden="true">
-          <div class="glow"></div>
-          <span class="l">L</span><span class="f">F</span>
-          <div class="beam"></div>
-        </div>
+      <div class="face front"><div class="in">
         <div class="name">LUMENS FRAME</div>
+        <div class="rule"></div>
         <div class="tag">BRANDING · DESIGN · VIDEO</div>
-      </div>
-      <div class="face back">
+      </div></div>
+      <div class="face back"><div class="in">
         <div>
-          <div class="brand">LUMENS FRAME</div>
-          <div class="brand-sub">BRANDING · DESIGN · VIDEO</div>
+          <div class="brand">루멘스 프레임</div>
+          <div class="brand-sub">브랜딩 · 디자인 · 영상</div>
         </div>
         <div class="row">
           <div class="who">
@@ -101,12 +100,12 @@
             <ul>
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>010-7926-1530</li>
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>yjlee1530@gmail.com</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>서울시 강북구 삼양로27길 95</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>lumensframe.co.kr</li>
             </ul>
           </div>
         </div>
         <div class="motto">아이디어를 빛으로</div>
-      </div>
+      </div></div>
     </button>
   </div>
   <p class="hint">명함을 누르면 뒷면이 보여요</p>
@@ -129,6 +128,10 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
       <span class="txt">이메일 보내기<small>yjlee1530@gmail.com</small></span>
     </a>
+    <a class="btn" href="https://lumensframe.co.kr">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      <span class="txt">웹사이트 방문<small>lumensframe.co.kr</small></span>
+    </a>
   </nav>
 
   <footer>© LUMENS FRAME</footer>
@@ -145,8 +148,7 @@
       'ORG:루멘스 프레임 (Lumens Frame)','TITLE:대표',
       'TEL;TYPE=CELL:+82-10-7926-1530',
       'EMAIL;TYPE=WORK:yjlee1530@gmail.com',
-      'ADR;TYPE=WORK:;;삼양로27길 95;강북구;서울;;대한민국',
-      'URL:' + location.href,
+      'URL:https://lumensframe.co.kr',
       'END:VCARD'
     ].join('\r\n');
     var blob = new Blob([v], {type:'text/vcard;charset=utf-8'});
