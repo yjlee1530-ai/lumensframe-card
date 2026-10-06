@@ -2,231 +2,159 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>루멘스 프레임 명함 | LUMENS FRAME</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>이연주 | 루멘스 프레임 (Lumens Frame)</title>
+<meta name="description" content="루멘스 프레임 대표 이연주 — 브랜딩, 디자인, 영상">
+<meta property="og:title" content="이연주 | 루멘스 프레임 (Lumens Frame)">
+<meta property="og:description" content="브랜딩 · 디자인 · 영상">
+<meta name="theme-color" content="#141B31">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --accent: #A08676;
-    --ink: #111111;
-    --wordmark: #565656;
-    --sub: #4A3F3A;
-    --rule: #A69C95;
-    --cream: #FAF7F4;
-    --scale: 2;
+  :root{
+    --navy:#141B31; --navy-2:#1C2542; --gold:#C9A76A; --gold-deep:#A9854A;
+    --paper:#F2ECE3; --sub:#3A4258;
+    --font:'Roboto','Noto Sans KR',-apple-system,'Apple SD Gothic Neo',sans-serif;
   }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: #ECE8E4;
-    font-family: Roboto, Pretendard, sans-serif;
-    color: var(--ink);
-    -webkit-font-smoothing: antialiased;
-  }
-  .page {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 48px 16px 64px;
-  }
-  h1 {
-    font-family: Roboto, Pretendard, sans-serif;
-    font-weight: 400;
-    font-size: 20px;
-    letter-spacing: 0.14em;
-    color: var(--wordmark);
-    margin: 0 0 6px;
-    text-align: center;
-  }
-  .hint { text-align: center; font-size: 13px; color: #767676; margin: 0 0 40px; }
-  .cards {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 40px;
-  }
-  figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-  figcaption { font-size: 12px; color: #767676; letter-spacing: 0.04em; }
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;background:var(--navy);color:var(--paper);font-family:var(--font);-webkit-font-smoothing:antialiased}
+  body{padding:max(32px,env(safe-area-inset-top)) 20px max(32px,env(safe-area-inset-bottom));display:flex;justify-content:center}
+  main{width:100%;max-width:420px;display:flex;flex-direction:column;gap:28px}
 
-  /* 화면용 확대: 카드 원본은 340×189px(= 90×50mm) */
-  .frame {
-    width: calc(340px * var(--scale));
-    height: calc(189px * var(--scale));
-    max-width: 100%;
-    aspect-ratio: 340 / 189;
-    position: relative;
-    overflow: hidden;
-    border-radius: 6px;
-    box-shadow: 0 2px 4px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.10);
-    container-type: inline-size;
-  }
-  .card {
-    width: 340px;
-    height: 189px;
-    position: absolute;
-    top: 0; left: 0;
-    transform-origin: 0 0;
-    transform: scale(calc(100cqw / 340px));
-  }
-  @supports not (width: 1cqw) {
-    .card { transform: scale(var(--scale)); }
-  }
+  /* 카드 */
+  .card-wrap{perspective:1200px}
+  .card{position:relative;width:100%;aspect-ratio:90/50;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.2,.7,.2,1);cursor:pointer;border:0;padding:0;background:none;display:block}
+  .card.flipped{transform:rotateY(180deg)}
+  .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:6px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.35)}
+  .front{background:var(--navy-2);color:var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4%}
+  .mono{position:relative;width:24%;aspect-ratio:80/72}
+  .mono span{position:absolute;font-weight:300;line-height:1;font-size:clamp(28px,11vw,48px)}
+  .mono .l{left:20%;top:0}
+  .mono .f{left:50%;top:33%}
+  .mono .beam{position:absolute;left:5%;top:64%;width:98%;height:1px;background:linear-gradient(90deg,rgba(243,227,191,0),#F6E7C4 60%,rgba(243,227,191,0));transform:rotate(-38deg)}
+  .mono .glow{position:absolute;left:42%;top:42%;width:38%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(255,236,196,.5),rgba(255,236,196,0) 70%)}
+  .front .name{font-weight:300;letter-spacing:.34em;padding-left:.34em;font-size:clamp(14px,4.6vw,19px)}
+  .front .tag{font-size:clamp(7px,2vw,8.5px);letter-spacing:.32em;padding-left:.32em}
 
-  /* 앞면 로고 */
-  .front {
-    background: #FFFFFF;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    padding-top: 4px;
-  }
-  .mono {
-    width: 20px; height: 20px; border-radius: 50%;
-    background: var(--accent);
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 9px;
-  }
-  .mono span {
-    font-family: 'Pinyon Script', cursive;
-    font-size: 12px; line-height: 1; color: #fff;
-    letter-spacing: -0.12em; padding-right: 0.12em; margin-top: 1px;
-  }
-  .front .lumens { font-size: 24px; letter-spacing: .2em; padding-left: .2em; line-height: 1; color: var(--wordmark); }
-  .front .frame-word { font-size: 9.5px; letter-spacing: .2em; padding-left: .2em; line-height: 1; margin-top: 5px; }
-  .front .services { font-size: 6px; font-weight: 500; letter-spacing: .3em; padding-left: .3em; margin-top: 13px; color: #1A1A1A; }
-  .front .tagline { font-size: 8px; font-weight: 300; line-height: 1.3; text-align: center; margin-top: 5px; color: #1A1A1A; }
+  .back{transform:rotateY(180deg);background:var(--paper);color:var(--navy);padding:7.5% 6.5% 5%;display:flex;flex-direction:column;justify-content:space-between;text-align:left}
+  .back .brand{font-size:clamp(12px,3.8vw,16px);letter-spacing:.28em}
+  .back .brand-sub{font-size:clamp(6px,1.8vw,7.5px);letter-spacing:.3em;color:var(--sub);margin-top:5px}
+  .back .row{display:flex;justify-content:space-between;align-items:flex-end}
+  .back .who{display:flex;flex-direction:column;gap:12px}
+  .back .rule{width:26px;height:1px;background:var(--gold-deep)}
+  .back .person{font-size:clamp(13px,3.9vw,16px);font-weight:500;letter-spacing:.1em}
+  .back .person small{font-size:.55em;font-weight:400;color:var(--sub);margin-left:6px;letter-spacing:.08em}
+  .back .info{display:flex;gap:12px}
+  .back .info .vr{width:1px;background:var(--gold-deep)}
+  .back ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px;font-size:clamp(7px,2.1vw,9px)}
+  .back li{display:flex;align-items:center;gap:6px}
+  .back li svg{width:1.2em;height:1.2em;flex:none}
+  .back .motto{align-self:flex-end;font-size:clamp(6px,1.8vw,7.5px);letter-spacing:.24em;color:var(--gold-deep)}
 
-  /* 뒷면 */
-  .back {
-    background: var(--cream);
-    display: flex; align-items: center;
-    padding: 0 30px 16px 40px; gap: 22px;
-  }
-  .back.en { padding-right: 26px; gap: 20px; }
-  .left { display: flex; flex-direction: column; width: 98px; padding-top: 2px; }
-  .wordmark { font-size: 20px; letter-spacing: .14em; line-height: 1.02; color: var(--wordmark); }
-  .kname { font-family: Pretendard, sans-serif; font-size: 8.5px; font-weight: 600; color: var(--sub); margin-top: 7px; letter-spacing: .02em; }
-  .short-rule { width: 23px; height: 1px; background: var(--accent); margin-top: 16px; }
-  .kservices { font-family: Pretendard, sans-serif; font-size: 8px; font-weight: 600; color: var(--sub); margin-top: 18px; word-spacing: .25em; white-space: nowrap; }
-  .eservices { font-size: 6.5px; font-weight: 500; color: var(--sub); margin-top: 16px; letter-spacing: .16em; line-height: 1.6; }
-  .divider { width: 1px; height: 82px; background: var(--rule); }
-  .right { display: flex; flex-direction: column; }
-  .name-row { display: flex; align-items: baseline; gap: 12px; }
-  .back.en .name-row { gap: 10px; }
-  .role-ko { font-family: Pretendard, sans-serif; font-size: 7px; font-weight: 600; letter-spacing: .3em; }
-  .name-ko { font-family: Pretendard, sans-serif; font-size: 15px; font-weight: 400; letter-spacing: .38em; }
-  .role-en { font-size: 6.5px; font-weight: 500; letter-spacing: .2em; }
-  .name-en { font-size: 14px; letter-spacing: .12em; }
-  .contacts { display: flex; flex-direction: column; gap: 8px; margin-top: 18px; font-size: 8px; }
-  .contacts div { display: flex; align-items: center; gap: 9px; }
-  .contacts a { color: inherit; text-decoration: none; }
-  .qr { position: absolute; right: 16px; bottom: 14px; width: 26px; height: 26px; line-height: 0; }
-  .contacts svg { width: 10px; height: 10px; flex: none; }
+  .hint{margin:-14px 0 0;text-align:center;font-size:12px;color:#8E95AB}
 
-  /* 인쇄: 카드 한 장 = 90×50mm 한 페이지 */
-  @page { size: 90mm 50mm; margin: 0; }
-  @media print {
-    body { background: none; }
-    .page { padding: 0; max-width: none; }
-    h1, .hint, figcaption { display: none; }
-    .cards { gap: 0; display: block; }
-    figure { display: block; break-after: page; page-break-after: always; }
-    .frame { width: 90mm; height: 50mm; max-width: none; border-radius: 0; box-shadow: none; }
-    .card { transform: scale(calc(90mm / 340px)); }
-    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  }
+  /* 소개 + 버튼 */
+  .intro h1{margin:0;font-size:22px;font-weight:500;letter-spacing:.04em}
+  .intro h1 span{font-family:'Roboto';font-weight:300;color:var(--gold);margin-left:8px;font-size:15px;letter-spacing:.08em}
+  .intro p{margin:8px 0 0;color:#C4C8D4;font-size:14px;line-height:1.6}
+
+  .actions{display:flex;flex-direction:column;gap:10px}
+  .btn{display:flex;align-items:center;gap:14px;min-height:56px;padding:0 18px;border-radius:6px;text-decoration:none;font-size:15px;color:var(--paper);background:rgba(255,255,255,.04);border:1px solid rgba(201,167,106,.35);font-family:var(--font);cursor:pointer;width:100%;text-align:left}
+  .btn svg{width:20px;height:20px;flex:none;color:var(--gold)}
+  .btn .txt{display:flex;flex-direction:column;gap:2px}
+  .btn .txt small{font-size:12px;color:#9AA1B6;font-family:'Roboto'}
+  .btn.primary{background:var(--gold);color:var(--navy);border-color:var(--gold);font-weight:500}
+  .btn.primary svg{color:var(--navy)}
+  .btn:focus-visible,.card:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+  footer{text-align:center;font-size:12px;color:#6E7690;letter-spacing:.06em}
+
+  @media (prefers-reduced-motion:reduce){.card{transition:none}}
 </style>
 </head>
 <body>
-<main class="page">
-  <h1>LUMENS FRAME</h1>
-  <p class="hint">명함 90 × 50 mm · 인쇄(⌘P / Ctrl+P)하면 한 면씩 실제 크기 PDF로 저장됩니다</p>
-
-  <div class="cards">
-    <figure>
-      <div class="frame">
-        <div class="card front">
-          <div class="mono" aria-hidden="true"><span>LF</span></div>
-          <div class="lumens">LUMENS</div>
-          <div class="frame-word">FRAME</div>
-          <div class="services">VIDEO PRODUCTION · BRANDING · DESIGN</div>
-          <div class="tagline">Capture Your Story,<br>Frame Your Brand</div>
+<main>
+  <div class="card-wrap">
+    <button class="card" id="card" aria-label="명함 앞뒤 뒤집기">
+      <div class="face front">
+        <div class="mono" aria-hidden="true">
+          <div class="glow"></div>
+          <span class="l">L</span><span class="f">F</span>
+          <div class="beam"></div>
         </div>
+        <div class="name">LUMENS FRAME</div>
+        <div class="tag">BRANDING · DESIGN · VIDEO</div>
       </div>
-      <figcaption>앞면 · 로고</figcaption>
-    </figure>
-
-    <figure>
-      <div class="frame">
-        <div class="card back" lang="ko">
-          <div class="left">
-            <div class="wordmark">LUMENS<br>FRAME</div>
-            <div class="kname">루멘스 프레임</div>
-            <div class="short-rule"></div>
-            <div class="kservices">영상제작 브랜딩 디자인</div>
-          </div>
-          <div class="divider"></div>
-          <div class="right">
-            <div class="name-row">
-              <div class="role-ko">대표</div>
-              <div class="name-ko">이연주</div>
-            </div>
-            <div class="contacts">
-              <div>
-                <svg viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="전화"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
-                <a href="tel:+821079261530">010 7926 1530</a>
-              </div>
-              <div>
-                <svg viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="이메일"><rect x="2.5" y="5" width="19" height="14" rx="1"/><path d="M2.5 5.5l9.5 7.5 9.5-7.5"/><path d="M2.5 18.5l7-6.5"/><path d="M21.5 18.5l-7-6.5"/></svg>
-                <a href="mailto:lumensframe@gmail.com">lumensframe@gmail.com</a>
-              </div>
-              <div>
-                <svg viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="웹사이트"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19"/><path d="M12 2.5c2.6 2.7 3.9 5.9 3.9 9.5s-1.3 6.8-3.9 9.5c-2.6-2.7-3.9-5.9-3.9-9.5s1.3-6.8 3.9-9.5z"/></svg>
-                <a href="https://lumensframe.co.kr">lumensframe.co.kr</a>
-              </div>
-            </div>
-          </div>
-          <div class="qr"><svg width="26" height="26" viewBox="-1 -1 27 27" shape-rendering="crispEdges" role="img" aria-label="명함 웹페이지 QR 코드"><rect x="-1" y="-1" width="27" height="27" fill="#FFFFFF"></rect><path d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM9 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM14 0h1v1h-1zM18 0h1v1h-1zM19 0h1v1h-1zM20 0h1v1h-1zM21 0h1v1h-1zM22 0h1v1h-1zM23 0h1v1h-1zM24 0h1v1h-1zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM11 1h1v1h-1zM14 1h1v1h-1zM16 1h1v1h-1zM18 1h1v1h-1zM24 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM8 2h1v1h-1zM9 2h1v1h-1zM12 2h1v1h-1zM14 2h1v1h-1zM15 2h1v1h-1zM18 2h1v1h-1zM20 2h1v1h-1zM21 2h1v1h-1zM22 2h1v1h-1zM24 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM10 3h1v1h-1zM11 3h1v1h-1zM13 3h1v1h-1zM16 3h1v1h-1zM18 3h1v1h-1zM20 3h1v1h-1zM21 3h1v1h-1zM22 3h1v1h-1zM24 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM10 4h1v1h-1zM11 4h1v1h-1zM16 4h1v1h-1zM18 4h1v1h-1zM20 4h1v1h-1zM21 4h1v1h-1zM22 4h1v1h-1zM24 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM9 5h1v1h-1zM10 5h1v1h-1zM14 5h1v1h-1zM18 5h1v1h-1zM24 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM19 6h1v1h-1zM20 6h1v1h-1zM21 6h1v1h-1zM22 6h1v1h-1zM23 6h1v1h-1zM24 6h1v1h-1zM8 7h1v1h-1zM11 7h1v1h-1zM14 7h1v1h-1zM15 7h1v1h-1zM0 8h1v1h-1zM6 8h1v1h-1zM8 8h1v1h-1zM9 8h1v1h-1zM10 8h1v1h-1zM11 8h1v1h-1zM13 8h1v1h-1zM15 8h1v1h-1zM16 8h1v1h-1zM17 8h1v1h-1zM18 8h1v1h-1zM21 8h1v1h-1zM22 8h1v1h-1zM23 8h1v1h-1zM0 9h1v1h-1zM1 9h1v1h-1zM2 9h1v1h-1zM3 9h1v1h-1zM4 9h1v1h-1zM5 9h1v1h-1zM7 9h1v1h-1zM8 9h1v1h-1zM9 9h1v1h-1zM13 9h1v1h-1zM14 9h1v1h-1zM15 9h1v1h-1zM17 9h1v1h-1zM19 9h1v1h-1zM20 9h1v1h-1zM21 9h1v1h-1zM22 9h1v1h-1zM23 9h1v1h-1zM2 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM7 10h1v1h-1zM8 10h1v1h-1zM9 10h1v1h-1zM13 10h1v1h-1zM14 10h1v1h-1zM15 10h1v1h-1zM17 10h1v1h-1zM18 10h1v1h-1zM21 10h1v1h-1zM23 10h1v1h-1zM24 10h1v1h-1zM0 11h1v1h-1zM4 11h1v1h-1zM5 11h1v1h-1zM7 11h1v1h-1zM9 11h1v1h-1zM10 11h1v1h-1zM11 11h1v1h-1zM15 11h1v1h-1zM16 11h1v1h-1zM17 11h1v1h-1zM18 11h1v1h-1zM19 11h1v1h-1zM20 11h1v1h-1zM21 11h1v1h-1zM24 11h1v1h-1zM0 12h1v1h-1zM3 12h1v1h-1zM5 12h1v1h-1zM6 12h1v1h-1zM8 12h1v1h-1zM10 12h1v1h-1zM11 12h1v1h-1zM12 12h1v1h-1zM15 12h1v1h-1zM16 12h1v1h-1zM18 12h1v1h-1zM19 12h1v1h-1zM24 12h1v1h-1zM0 13h1v1h-1zM2 13h1v1h-1zM3 13h1v1h-1zM7 13h1v1h-1zM8 13h1v1h-1zM9 13h1v1h-1zM10 13h1v1h-1zM15 13h1v1h-1zM16 13h1v1h-1zM19 13h1v1h-1zM23 13h1v1h-1zM0 14h1v1h-1zM2 14h1v1h-1zM3 14h1v1h-1zM5 14h1v1h-1zM6 14h1v1h-1zM11 14h1v1h-1zM12 14h1v1h-1zM13 14h1v1h-1zM15 14h1v1h-1zM16 14h1v1h-1zM17 14h1v1h-1zM19 14h1v1h-1zM20 14h1v1h-1zM21 14h1v1h-1zM23 14h1v1h-1zM24 14h1v1h-1zM0 15h1v1h-1zM2 15h1v1h-1zM7 15h1v1h-1zM9 15h1v1h-1zM10 15h1v1h-1zM11 15h1v1h-1zM15 15h1v1h-1zM16 15h1v1h-1zM17 15h1v1h-1zM18 15h1v1h-1zM19 15h1v1h-1zM21 15h1v1h-1zM22 15h1v1h-1zM24 15h1v1h-1zM0 16h1v1h-1zM2 16h1v1h-1zM3 16h1v1h-1zM4 16h1v1h-1zM6 16h1v1h-1zM7 16h1v1h-1zM9 16h1v1h-1zM10 16h1v1h-1zM11 16h1v1h-1zM12 16h1v1h-1zM13 16h1v1h-1zM14 16h1v1h-1zM15 16h1v1h-1zM16 16h1v1h-1zM17 16h1v1h-1zM18 16h1v1h-1zM19 16h1v1h-1zM20 16h1v1h-1zM22 16h1v1h-1zM8 17h1v1h-1zM9 17h1v1h-1zM10 17h1v1h-1zM12 17h1v1h-1zM13 17h1v1h-1zM15 17h1v1h-1zM16 17h1v1h-1zM20 17h1v1h-1zM0 18h1v1h-1zM1 18h1v1h-1zM2 18h1v1h-1zM3 18h1v1h-1zM4 18h1v1h-1zM5 18h1v1h-1zM6 18h1v1h-1zM10 18h1v1h-1zM11 18h1v1h-1zM12 18h1v1h-1zM16 18h1v1h-1zM18 18h1v1h-1zM20 18h1v1h-1zM24 18h1v1h-1zM0 19h1v1h-1zM6 19h1v1h-1zM10 19h1v1h-1zM11 19h1v1h-1zM12 19h1v1h-1zM14 19h1v1h-1zM15 19h1v1h-1zM16 19h1v1h-1zM20 19h1v1h-1zM23 19h1v1h-1zM24 19h1v1h-1zM0 20h1v1h-1zM2 20h1v1h-1zM3 20h1v1h-1zM4 20h1v1h-1zM6 20h1v1h-1zM9 20h1v1h-1zM10 20h1v1h-1zM13 20h1v1h-1zM15 20h1v1h-1zM16 20h1v1h-1zM17 20h1v1h-1zM18 20h1v1h-1zM19 20h1v1h-1zM20 20h1v1h-1zM22 20h1v1h-1zM0 21h1v1h-1zM2 21h1v1h-1zM3 21h1v1h-1zM4 21h1v1h-1zM6 21h1v1h-1zM10 21h1v1h-1zM11 21h1v1h-1zM13 21h1v1h-1zM14 21h1v1h-1zM17 21h1v1h-1zM18 21h1v1h-1zM23 21h1v1h-1zM24 21h1v1h-1zM0 22h1v1h-1zM2 22h1v1h-1zM3 22h1v1h-1zM4 22h1v1h-1zM6 22h1v1h-1zM10 22h1v1h-1zM13 22h1v1h-1zM14 22h1v1h-1zM16 22h1v1h-1zM21 22h1v1h-1zM22 22h1v1h-1zM24 22h1v1h-1zM0 23h1v1h-1zM6 23h1v1h-1zM9 23h1v1h-1zM11 23h1v1h-1zM12 23h1v1h-1zM16 23h1v1h-1zM17 23h1v1h-1zM18 23h1v1h-1zM19 23h1v1h-1zM20 23h1v1h-1zM24 23h1v1h-1zM0 24h1v1h-1zM1 24h1v1h-1zM2 24h1v1h-1zM3 24h1v1h-1zM4 24h1v1h-1zM5 24h1v1h-1zM6 24h1v1h-1zM8 24h1v1h-1zM9 24h1v1h-1zM10 24h1v1h-1zM12 24h1v1h-1zM16 24h1v1h-1zM18 24h1v1h-1zM21 24h1v1h-1zM24 24h1v1h-1z" fill="#1A1A1A"></path></svg></div>
+      <div class="face back">
+        <div>
+          <div class="brand">LUMENS FRAME</div>
+          <div class="brand-sub">BRANDING · DESIGN · VIDEO</div>
         </div>
-      </div>
-      <figcaption>뒷면 · 국문</figcaption>
-    </figure>
-
-    <figure>
-      <div class="frame">
-        <div class="card back en" lang="en">
-          <div class="left">
-            <div class="wordmark">LUMENS<br>FRAME</div>
-            <div class="short-rule"></div>
-            <div class="eservices">VIDEO PRODUCTION<br>BRANDING · DESIGN</div>
+        <div class="row">
+          <div class="who">
+            <div class="rule"></div>
+            <div class="person">이연주<small>대표</small></div>
           </div>
-          <div class="divider"></div>
-          <div class="right">
-            <div class="name-row">
-              <div class="role-en">CEO</div>
-              <div class="name-en">Yeonju Lee</div>
-            </div>
-            <div class="contacts">
-              <div>
-                <svg viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Phone"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
-                <a href="tel:+821079261530">+82 10 7926 1530</a>
-              </div>
-              <div>
-                <svg viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Email"><rect x="2.5" y="5" width="19" height="14" rx="1"/><path d="M2.5 5.5l9.5 7.5 9.5-7.5"/><path d="M2.5 18.5l7-6.5"/><path d="M21.5 18.5l-7-6.5"/></svg>
-                <a href="mailto:lumensframe@gmail.com">lumensframe@gmail.com</a>
-              </div>
-              <div>
-                <svg viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Website"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19"/><path d="M12 2.5c2.6 2.7 3.9 5.9 3.9 9.5s-1.3 6.8-3.9 9.5c-2.6-2.7-3.9-5.9-3.9-9.5s1.3-6.8 3.9-9.5z"/></svg>
-                <a href="https://lumensframe.co.kr">lumensframe.co.kr</a>
-              </div>
-            </div>
+          <div class="info">
+            <div class="vr"></div>
+            <ul>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>010-7926-1530</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>yjlee1530@gmail.com</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>서울시 강북구 삼양로27길 95</li>
+            </ul>
           </div>
-          <div class="qr"><svg width="26" height="26" viewBox="-1 -1 27 27" shape-rendering="crispEdges" role="img" aria-label="QR code to business card web page"><rect x="-1" y="-1" width="27" height="27" fill="#FFFFFF"></rect><path d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM9 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM14 0h1v1h-1zM18 0h1v1h-1zM19 0h1v1h-1zM20 0h1v1h-1zM21 0h1v1h-1zM22 0h1v1h-1zM23 0h1v1h-1zM24 0h1v1h-1zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM11 1h1v1h-1zM14 1h1v1h-1zM16 1h1v1h-1zM18 1h1v1h-1zM24 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM8 2h1v1h-1zM9 2h1v1h-1zM12 2h1v1h-1zM14 2h1v1h-1zM15 2h1v1h-1zM18 2h1v1h-1zM20 2h1v1h-1zM21 2h1v1h-1zM22 2h1v1h-1zM24 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM10 3h1v1h-1zM11 3h1v1h-1zM13 3h1v1h-1zM16 3h1v1h-1zM18 3h1v1h-1zM20 3h1v1h-1zM21 3h1v1h-1zM22 3h1v1h-1zM24 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM10 4h1v1h-1zM11 4h1v1h-1zM16 4h1v1h-1zM18 4h1v1h-1zM20 4h1v1h-1zM21 4h1v1h-1zM22 4h1v1h-1zM24 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM9 5h1v1h-1zM10 5h1v1h-1zM14 5h1v1h-1zM18 5h1v1h-1zM24 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM19 6h1v1h-1zM20 6h1v1h-1zM21 6h1v1h-1zM22 6h1v1h-1zM23 6h1v1h-1zM24 6h1v1h-1zM8 7h1v1h-1zM11 7h1v1h-1zM14 7h1v1h-1zM15 7h1v1h-1zM0 8h1v1h-1zM6 8h1v1h-1zM8 8h1v1h-1zM9 8h1v1h-1zM10 8h1v1h-1zM11 8h1v1h-1zM13 8h1v1h-1zM15 8h1v1h-1zM16 8h1v1h-1zM17 8h1v1h-1zM18 8h1v1h-1zM21 8h1v1h-1zM22 8h1v1h-1zM23 8h1v1h-1zM0 9h1v1h-1zM1 9h1v1h-1zM2 9h1v1h-1zM3 9h1v1h-1zM4 9h1v1h-1zM5 9h1v1h-1zM7 9h1v1h-1zM8 9h1v1h-1zM9 9h1v1h-1zM13 9h1v1h-1zM14 9h1v1h-1zM15 9h1v1h-1zM17 9h1v1h-1zM19 9h1v1h-1zM20 9h1v1h-1zM21 9h1v1h-1zM22 9h1v1h-1zM23 9h1v1h-1zM2 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM7 10h1v1h-1zM8 10h1v1h-1zM9 10h1v1h-1zM13 10h1v1h-1zM14 10h1v1h-1zM15 10h1v1h-1zM17 10h1v1h-1zM18 10h1v1h-1zM21 10h1v1h-1zM23 10h1v1h-1zM24 10h1v1h-1zM0 11h1v1h-1zM4 11h1v1h-1zM5 11h1v1h-1zM7 11h1v1h-1zM9 11h1v1h-1zM10 11h1v1h-1zM11 11h1v1h-1zM15 11h1v1h-1zM16 11h1v1h-1zM17 11h1v1h-1zM18 11h1v1h-1zM19 11h1v1h-1zM20 11h1v1h-1zM21 11h1v1h-1zM24 11h1v1h-1zM0 12h1v1h-1zM3 12h1v1h-1zM5 12h1v1h-1zM6 12h1v1h-1zM8 12h1v1h-1zM10 12h1v1h-1zM11 12h1v1h-1zM12 12h1v1h-1zM15 12h1v1h-1zM16 12h1v1h-1zM18 12h1v1h-1zM19 12h1v1h-1zM24 12h1v1h-1zM0 13h1v1h-1zM2 13h1v1h-1zM3 13h1v1h-1zM7 13h1v1h-1zM8 13h1v1h-1zM9 13h1v1h-1zM10 13h1v1h-1zM15 13h1v1h-1zM16 13h1v1h-1zM19 13h1v1h-1zM23 13h1v1h-1zM0 14h1v1h-1zM2 14h1v1h-1zM3 14h1v1h-1zM5 14h1v1h-1zM6 14h1v1h-1zM11 14h1v1h-1zM12 14h1v1h-1zM13 14h1v1h-1zM15 14h1v1h-1zM16 14h1v1h-1zM17 14h1v1h-1zM19 14h1v1h-1zM20 14h1v1h-1zM21 14h1v1h-1zM23 14h1v1h-1zM24 14h1v1h-1zM0 15h1v1h-1zM2 15h1v1h-1zM7 15h1v1h-1zM9 15h1v1h-1zM10 15h1v1h-1zM11 15h1v1h-1zM15 15h1v1h-1zM16 15h1v1h-1zM17 15h1v1h-1zM18 15h1v1h-1zM19 15h1v1h-1zM21 15h1v1h-1zM22 15h1v1h-1zM24 15h1v1h-1zM0 16h1v1h-1zM2 16h1v1h-1zM3 16h1v1h-1zM4 16h1v1h-1zM6 16h1v1h-1zM7 16h1v1h-1zM9 16h1v1h-1zM10 16h1v1h-1zM11 16h1v1h-1zM12 16h1v1h-1zM13 16h1v1h-1zM14 16h1v1h-1zM15 16h1v1h-1zM16 16h1v1h-1zM17 16h1v1h-1zM18 16h1v1h-1zM19 16h1v1h-1zM20 16h1v1h-1zM22 16h1v1h-1zM8 17h1v1h-1zM9 17h1v1h-1zM10 17h1v1h-1zM12 17h1v1h-1zM13 17h1v1h-1zM15 17h1v1h-1zM16 17h1v1h-1zM20 17h1v1h-1zM0 18h1v1h-1zM1 18h1v1h-1zM2 18h1v1h-1zM3 18h1v1h-1zM4 18h1v1h-1zM5 18h1v1h-1zM6 18h1v1h-1zM10 18h1v1h-1zM11 18h1v1h-1zM12 18h1v1h-1zM16 18h1v1h-1zM18 18h1v1h-1zM20 18h1v1h-1zM24 18h1v1h-1zM0 19h1v1h-1zM6 19h1v1h-1zM10 19h1v1h-1zM11 19h1v1h-1zM12 19h1v1h-1zM14 19h1v1h-1zM15 19h1v1h-1zM16 19h1v1h-1zM20 19h1v1h-1zM23 19h1v1h-1zM24 19h1v1h-1zM0 20h1v1h-1zM2 20h1v1h-1zM3 20h1v1h-1zM4 20h1v1h-1zM6 20h1v1h-1zM9 20h1v1h-1zM10 20h1v1h-1zM13 20h1v1h-1zM15 20h1v1h-1zM16 20h1v1h-1zM17 20h1v1h-1zM18 20h1v1h-1zM19 20h1v1h-1zM20 20h1v1h-1zM22 20h1v1h-1zM0 21h1v1h-1zM2 21h1v1h-1zM3 21h1v1h-1zM4 21h1v1h-1zM6 21h1v1h-1zM10 21h1v1h-1zM11 21h1v1h-1zM13 21h1v1h-1zM14 21h1v1h-1zM17 21h1v1h-1zM18 21h1v1h-1zM23 21h1v1h-1zM24 21h1v1h-1zM0 22h1v1h-1zM2 22h1v1h-1zM3 22h1v1h-1zM4 22h1v1h-1zM6 22h1v1h-1zM10 22h1v1h-1zM13 22h1v1h-1zM14 22h1v1h-1zM16 22h1v1h-1zM21 22h1v1h-1zM22 22h1v1h-1zM24 22h1v1h-1zM0 23h1v1h-1zM6 23h1v1h-1zM9 23h1v1h-1zM11 23h1v1h-1zM12 23h1v1h-1zM16 23h1v1h-1zM17 23h1v1h-1zM18 23h1v1h-1zM19 23h1v1h-1zM20 23h1v1h-1zM24 23h1v1h-1zM0 24h1v1h-1zM1 24h1v1h-1zM2 24h1v1h-1zM3 24h1v1h-1zM4 24h1v1h-1zM5 24h1v1h-1zM6 24h1v1h-1zM8 24h1v1h-1zM9 24h1v1h-1zM10 24h1v1h-1zM12 24h1v1h-1zM16 24h1v1h-1zM18 24h1v1h-1zM21 24h1v1h-1zM24 24h1v1h-1z" fill="#1A1A1A"></path></svg></div>
         </div>
+        <div class="motto">아이디어를 빛으로</div>
       </div>
-      <figcaption>뒷면 · 영문</figcaption>
-    </figure>
+    </button>
   </div>
+  <p class="hint">명함을 누르면 뒷면이 보여요</p>
+
+  <section class="intro">
+    <h1>이연주<span>Yeonju Lee</span></h1>
+    <p>루멘스 프레임 대표<br>브랜드 디자인과 영상 제작</p>
+  </section>
+
+  <nav class="actions">
+    <button class="btn primary" id="save">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+      <span class="txt">연락처 저장</span>
+    </button>
+    <a class="btn" href="tel:+821079261530">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+      <span class="txt">전화하기<small>010-7926-1530</small></span>
+    </a>
+    <a class="btn" href="mailto:yjlee1530@gmail.com">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+      <span class="txt">이메일 보내기<small>yjlee1530@gmail.com</small></span>
+    </a>
+  </nav>
+
+  <footer>© LUMENS FRAME</footer>
 </main>
+
+<script>
+  document.getElementById('card').addEventListener('click', function(){
+    this.classList.toggle('flipped');
+  });
+  document.getElementById('save').addEventListener('click', function(){
+    var v = [
+      'BEGIN:VCARD','VERSION:3.0',
+      'N:이;연주;;;','FN:이연주',
+      'ORG:루멘스 프레임 (Lumens Frame)','TITLE:대표',
+      'TEL;TYPE=CELL:+82-10-7926-1530',
+      'EMAIL;TYPE=WORK:yjlee1530@gmail.com',
+      'ADR;TYPE=WORK:;;삼양로27길 95;강북구;서울;;대한민국',
+      'URL:' + location.href,
+      'END:VCARD'
+    ].join('\r\n');
+    var blob = new Blob([v], {type:'text/vcard;charset=utf-8'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'LumensFrame_이연주.vcf';
+    document.body.appendChild(a); a.click(); a.remove();
+  });
+</script>
 </body>
 </html>
